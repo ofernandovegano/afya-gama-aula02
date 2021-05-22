@@ -1,0 +1,46 @@
+{
+  "data": [
+    {
+      "id": "0",
+      "name": "Morango",
+      "price": 10
+    },
+    {
+      "id": "1",
+      "name": "Banana",
+      "price": 10
+    },
+    {
+      "id": "2",
+      "name": "Maça",
+      "price": 10
+    },
+    {
+      "id": "3",
+      "name": "Pera",
+      "price": 10
+    },
+    {
+      "id": "4",
+      "name": "Uva",
+      "price": 10
+    },
+    {
+      "id": "5",
+      "name": "Kiwi",
+      "price": 10
+    },
+    {
+      "name": "abacaxi",
+      "price": 15,
+      "id": "utZPY8U"
+    }
+  ],
+  "datacontent": [
+    {
+      "id": 3000,
+      "name": "Tester",
+      "price": 10
+    }
+  ]
+}
