@@ -12,17 +12,18 @@ interface IData{
 
 const App: React.FC = () => {
   const [ data, setData ] = useState<IData[]>([]);
+  const [ isLoad, setIsLoad ] = useState<boolean>(false);
   const [ fruta, setFruta] = useState<string>('');
   const [ frutaValue, setFrutaValue] = useState<any>('');
 
   useEffect(() => {
-    console.log(fruta)
+    console.log(isLoad)
     api.get('data').then(
       response => {
         setData(response.data)
       }
     )
-  }, [fruta]);
+  }, [isLoad]);
 
 
 
@@ -33,19 +34,21 @@ const App: React.FC = () => {
 
   const addToApi = useCallback(
     () => {
+      setIsLoad(true)
       api.post('data', {
         id: uuid,
         name: fruta,
         price: frutaValue
       }).then(
         response => alert('tudo certo')
-      ).catch(e => alert('error'))
+      ).catch(e => alert('error')).finally( () => setIsLoad(false)
+
+      )
     }, [uuid, fruta,frutaValue]
   ) 
   
   return (
     <div>
-      <h1> Hello </h1>
       <ul>
         { data.map(frut => (
           <li key={ frut.id }>
@@ -54,12 +57,20 @@ const App: React.FC = () => {
         ))}
       </ul>
       <hr/>
-      <h1>{fruta}</h1>
-      <hr/>
-      <input type="text" onChange={ e => setFruta(e.target.value) } placeholder='informe seu nome' />
-      <input type="number" onChange={ e => setFrutaValue(parseFloat(e.target.value)) } placeholder='qual o valor' />
-
-      <button onClick={ addToApi }>Adicionar</button>
+      {isLoad ? (
+        <div>
+          <p>Aguarde, carregando...</p>
+        </div>
+      ) : (
+        <>
+          <h1>{fruta}</h1>
+          <hr/>
+          <input type="text" onChange={ e => setFruta(e.target.value) } placeholder='informe seu nome' />
+          <input type="number" onChange={ e => setFrutaValue(parseFloat(e.target.value)) } placeholder='qual o valor' />
+    
+          <button onClick={addToApi}>Adicionar</button>
+        </>
+      )}
     </div>
   );
 }
